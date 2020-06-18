@@ -14,7 +14,7 @@ const AppRoutes: React.FC = () => (
       headerShown: false,
       cardStyle: { backgroundColor: '#312e38' },
     }}
-    // initialRouteName="SignUp"
+    initialRouteName="SignUp"
   >
     <App.Screen name="Dashboard" component={Dashboard} />
     <App.Screen name="CreateAppointment" component={CreateAppointment} />
