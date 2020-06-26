@@ -1,17 +1,17 @@
 import React, {
-  useRef,
-  useState,
-  useCallback,
   useEffect,
+  useState,
+  useRef,
   useImperativeHandle,
   forwardRef,
+  useCallback,
 } from 'react';
-import { TextInputProps } from 'react-native';
+import { TextInputProperties } from 'react-native';
 import { useField } from '@unform/core';
 
 import { Container, TextInput, Icon } from './styles';
 
-interface InputProps extends TextInputProps {
+interface InputProps extends TextInputProperties {
   name: string;
   icon: string;
   containerStyle?: {};
@@ -31,30 +31,8 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
 ) => {
   const inputElementRef = useRef<any>(null);
 
-  const { registerField, defaultValue, fieldName, error } = useField(name);
+  const { registerField, defaultValue = '', fieldName, error } = useField(name);
   const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
-
-  useImperativeHandle(ref, () => ({
-    focus() {
-      inputElementRef.current.focus();
-    },
-  }));
-
-  useEffect(() => {
-    registerField<string>({
-      name: fieldName,
-      ref: inputValueRef.current,
-      path: 'value',
-      setValue(ref: any, value) {
-        inputValueRef.current.value = value;
-        inputElementRef.current.setNativeProps({ text: value });
-      },
-      clearValue() {
-        inputValueRef.current.value = '';
-        inputElementRef.current.clear();
-      },
-    });
-  }, [fieldName, registerField]);
 
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
@@ -69,8 +47,22 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
     setIsFilled(!!inputValueRef.current.value);
   }, []);
 
+  useImperativeHandle(ref, () => ({
+    focus() {
+      inputElementRef.current.focus();
+    },
+  }));
+
+  useEffect(() => {
+    registerField<string>({
+      name: fieldName,
+      ref: inputValueRef.current,
+      path: 'value',
+    });
+  }, [fieldName, registerField]);
+
   return (
-    <Container style={containerStyle} isFocused={isFocused} isErrored={!!error}>
+    <Container isFocused={isFocused} isErrored={!!error} style={containerStyle}>
       <Icon
         name={icon}
         size={20}
