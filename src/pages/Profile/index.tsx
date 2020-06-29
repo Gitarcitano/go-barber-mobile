@@ -39,7 +39,7 @@ interface ProfileFormData {
 }
 
 const Profile: React.FC = () => {
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, signOut } = useAuth();
 
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
@@ -250,6 +250,9 @@ const Profile: React.FC = () => {
                 Salvar alterações
               </Button>
             </Form>
+            <Button onPress={() => signOut()}>
+                Fazer o logOut
+            </Button>
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>
