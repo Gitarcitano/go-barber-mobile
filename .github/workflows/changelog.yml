@@ -8,9 +8,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: dorny/paths-filter@v2
-      id: filter
+      id: changes
       with:
-        filters:
+        filters: |
           markdown:
             - modified: 'CHANGELOG.md'
     if: steps.changes.outputs.src == 'false'
