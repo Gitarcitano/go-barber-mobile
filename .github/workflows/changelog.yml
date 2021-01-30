@@ -7,7 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: npm ci
+      - name: Install
+        uses: CultureHQ/actions-yarn@master
+        with:
+          args: install
       - name: validate changed changelog
         uses: syeutyu/validate-changed-files@v1
         with:
