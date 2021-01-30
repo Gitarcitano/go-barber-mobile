@@ -6,10 +6,13 @@ jobs:
   check_changelog:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Verify Changed files
-        uses: tj-actions/verify-changed-files@v5.4
-        id: changed_files
-        with:
-          files: |
-             CHANGELOG.MD
+    - uses: actions/checkout@v2
+    - uses: dorny/paths-filter@v2
+      id: changes
+      with:
+        filters: |
+          markdown:
+            - modified: 'CHANGELOG.md'
+    - name: Validate
+      if: ${{ steps.changes.outputs.markdown == 'false' }}
+      run: exit 1
