@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      -run: yarn install --frozen-lockfile
+      - run: npm ci
       - name: validate changed changelog
         uses: syeutyu/validate-changed-files@v1
         with:
