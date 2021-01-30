@@ -13,5 +13,6 @@ jobs:
         filters: |
           markdown:
             - modified: 'CHANGELOG.md'
-      if: steps.changes.outputs.src == 'false'
+    - name: Validate
+      if: ${{ steps.filter.outputs.markdown == 'false' }}
       run: exit 1
