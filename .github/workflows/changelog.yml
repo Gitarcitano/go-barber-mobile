@@ -14,5 +14,5 @@ jobs:
           markdown:
             - modified: 'CHANGELOG.md'
     - name: Validate
-      if: ${{ steps.filter.outputs.markdown == 'false' }}
+      if: ${{ steps.changes.outputs.markdown == 'false' }}
       run: exit 1
