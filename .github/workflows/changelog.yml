@@ -10,7 +10,7 @@ jobs:
     - uses: dorny/paths-filter@v2
       id: filter
       with:
-        filters: ... # Configure your filters
+        filters:
           markdown:
             - modified: 'CHANGELOG.md'
     if: steps.changes.outputs.src == 'false'
