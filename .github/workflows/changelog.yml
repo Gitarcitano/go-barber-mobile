@@ -1,0 +1,14 @@
+name: Check changelog
+on:
+  pull_request:
+    branches: [ master ]
+jobs:
+  check_changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: validate changed changelog
+        uses: syeutyu/validate-changed-files@v1
+        with:
+          file-names: 'CHANGELOG.MD'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
