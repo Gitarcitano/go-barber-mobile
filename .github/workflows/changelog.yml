@@ -12,7 +12,7 @@ jobs:
       with:
         filters: |
           markdown:
-            - modified: 'CHANGELOG.md'
+            - modified: 'CHANGELOG.MD'
     - name: Validate
       if: ${{ steps.changes.outputs.markdown == 'false' }}
       run: exit 1
