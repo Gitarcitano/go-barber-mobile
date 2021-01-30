@@ -4,11 +4,16 @@ on:
     branches: [ master ]
 jobs:
   check_changelog:
+    if: "! contains(toJSON(github.event.pull_request.title), '[skip-changelog]')"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: validate changed changelog
-        uses: syeutyu/validate-changed-files@v1
-        with:
-          file-names: 'CHANGELOG.MD'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/checkout@v2
+    - uses: dorny/paths-filter@v2
+      id: changes
+      with:
+        filters: |
+          markdown:
+            - modified: 'CHANGELOG.MD'
+    - name: Validate
+      if: ${{ steps.changes.outputs.markdown == 'false' }}
+      run: exit 1
