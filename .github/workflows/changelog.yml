@@ -13,5 +13,5 @@ jobs:
         filters: |
           markdown:
             - modified: 'CHANGELOG.md'
-    if: steps.changes.outputs.src == 'false'
-    run: exit 1
+      if: steps.changes.outputs.src == 'false'
+      run: exit 1
