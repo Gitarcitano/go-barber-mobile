@@ -14,6 +14,8 @@ jobs:
         filters: |
           markdown:
             - modified: 'CHANGELOG.MD'
-    - name: Validate
+    - name: Check if modified changelog is present
       if: ${{ steps.changes.outputs.markdown == 'false' }}
-      run: exit 1
+      run: |
+        echo "Doesn't found a modified CHANGELOG.MD"
+        exit 1
