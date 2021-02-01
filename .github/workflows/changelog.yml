@@ -1,7 +1,8 @@
-name: Check changelog
+name: CI
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ master, develop ]
+    types: [opened, assigned, edited, synchronize, reopened]
 jobs:
   check_changelog:
     if: "! contains(toJSON(github.event.pull_request.title), '[skip-changelog]')"
